@@ -16,4 +16,3 @@ def contact(request):
         return render(request, 'pages/contact.html')
     return render(request, 'pages/contact.html')
 
-# Create your views here.
