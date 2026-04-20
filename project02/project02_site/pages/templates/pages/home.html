@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | GamingTube{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to GamingTube</h1>
+    <p class="lead">Discover the best gaming YouTube channels.</p>
+    <a href="{% url 'about' %}" class="btn btn-primary">Learn More</a>
+</div>
+{% endblock %}
