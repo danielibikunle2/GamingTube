@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Channels | GamingTube{% endblock %}
+
+{% block content %}
+<h1>Gaming Channels</h1>
+<div class="row">
+    {% for channel in channels %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ channel.banner.url }}" class="card-img-top" alt="{{ channel.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ channel.name }}</h5>
+                <p class="card-text">{{ channel.description|truncatewords:20 }}</p>
+                <p class="text-muted">{{ channel.subscriber_count }} subscribers</p>
+                <a href="{% url 'channel_detail' channel.pk %}" class="btn btn-primary">View Channel</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No channels yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
