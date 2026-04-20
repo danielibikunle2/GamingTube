@@ -4,6 +4,8 @@
 
 {% block content %}
 <h1>Gaming Channels</h1>
+<a href="{% url 'channel_add' %}" class="btn btn-success mb-4">+ Add Your Channel</a>
+
 <div class="row">
     {% for channel in channels %}
     <div class="col-md-4 mb-4">

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Channel | GamingTube{% endblock %}
+
+{% block content %}
+<h1>Add Your Channel</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Channel Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="4"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Subscriber Count</label>
+        <input type="number" name="subscriber_count" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Banner Image</label>
+        <input type="file" name="banner" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Channel</button>
+    <a href="{% url 'channel_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
