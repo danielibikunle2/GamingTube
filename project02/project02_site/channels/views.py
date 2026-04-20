@@ -20,6 +20,7 @@ def channel_add(request):
             channel = form.save(commit=False)
             channel.owner = request.user
             channel.save()
+            form.save_m2m()  # needed to save ManyToMany fields
             return redirect('channel_list')
     else:
         form = ChannelForm()

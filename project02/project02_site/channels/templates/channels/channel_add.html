@@ -22,6 +22,10 @@
         <label class="form-label">Banner Image</label>
         <input type="file" name="banner" class="form-control">
     </div>
+    <div class="mb-3">
+        <label class="form-label">Games Covered</label>
+        {{ form.games }}
+    </div>
     <button type="submit" class="btn btn-primary">Add Channel</button>
     <a href="{% url 'channel_list' %}" class="btn btn-secondary">Cancel</a>
 </form>
