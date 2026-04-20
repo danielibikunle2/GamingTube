@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Games | GamingTube{% endblock %}
+
+{% block content %}
+<h1>Games</h1>
+
+<div class="row">
+    {% for game in games %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if game.cover_image %}
+            <img src="{{ game.cover_image.url }}" class="card-img-top" alt="{{ game.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ game.title }}</h5>
+                {% if game.genre %}
+                <p class="text-muted">{{ game.genre }}</p>
+                {% endif %}
+                {% if game.release_year %}
+                <p class="text-muted">Released: {{ game.release_year }}</p>
+                {% endif %}
+                <a href="{% url 'game_detail' game.pk %}" class="btn btn-primary">View Game</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No games yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ game.title }} | GamingTube{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        {% if game.cover_image %}
+        <img src="{{ game.cover_image.url }}" class="img-fluid mb-4" alt="{{ game.title }}">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <h1>{{ game.title }}</h1>
+        {% if game.genre %}
+        <p><strong>Genre:</strong> {{ game.genre }}</p>
+        {% endif %}
+        {% if game.release_year %}
+        <p><strong>Released:</strong> {{ game.release_year }}</p>
+        {% endif %}
+
+        <h3 class="mt-4">Channels Covering This Game</h3>
+        {% if channels %}
+        <div class="row">
+            {% for channel in channels %}
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ channel.name }}</h5>
+                        <p class="card-text">{{ channel.description|truncatewords:15 }}</p>
+                        <a href="{% url 'channel_detail' channel.pk %}" class="btn btn-primary">View Channel</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No channels covering this game yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
