@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from django.contrib import messages
+from channels.models import Channel
 
 def home(request):
-    return render(request, 'pages/home.html')
+    featured_channels = Channel.objects.all()[:3]   
+    context = {
+        'featured_channels': featured_channels
+    }
+    return render(request, 'pages/home.html', context)
 
 def about(request):
     return render(request, 'pages/about.html')

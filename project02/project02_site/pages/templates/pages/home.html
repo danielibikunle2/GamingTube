@@ -1,11 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Home | GamingTube{% endblock %}
+{% block title %}GamingTube - Discover Gaming YouTube Channels{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to GamingTube</h1>
-    <p class="lead">Discover the best gaming YouTube channels.</p>
-    <a href="{% url 'about' %}" class="btn btn-primary">Learn More</a>
+
+<!-- Hero Section -->
+<div class="bg-dark text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold">Welcome to GamingTube</h1>
+                <p class="lead mb-4">Your ultimate directory for the best gaming YouTube channels, videos, and games.</p>
+                <a href="{% url 'channel_list' %}" class="btn btn-primary btn-lg me-3">Browse Channels</a>
+                <a href="{% url 'game_list' %}" class="btn btn-outline-light btn-lg">Explore Games</a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <!-- You can add a hero image here later -->
+                <img src="{% static 'images/gaming-hero.png' %}" alt="GamingTube" class="img-fluid rounded" style="max-height: 300px;">
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Featured Channels -->
+<div class="container mb-5">
+    <h2 class="mb-4">Featured Channels</h2>
+    <div class="row">
+        {% for channel in featured_channels %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if channel.banner %}
+                <img src="{{ channel.banner.url }}" class="card-img-top" alt="{{ channel.name }}" style="height: 180px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ channel.name }}</h5>
+                    <p class="card-text text-muted">{{ channel.subscriber_count }} subscribers</p>
+                    <a href="{% url 'channel_detail' channel.pk %}" class="btn btn-primary">View Channel</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No featured channels yet. <a href="{% url 'channel_add' %}">Add one!</a></p>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
