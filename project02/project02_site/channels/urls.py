@@ -1,8 +1,7 @@
 from django.urls import path
-from . import views
-
+from .views import ChannelListView, ChannelDetailView, channel_add 
 urlpatterns = [
-    path('', views.channel_list, name='channel_list'),
-    path('<int:pk>/', views.channel_detail, name='channel_detail'),
-    path('add/', views.channel_add, name='channel_add'),
+    path('', ChannelListView.as_view(), name='channel_list'),
+    path('<int:pk>/', ChannelDetailView.as_view(), name='channel_detail'),
+    path('add/', channel_add, name='channel_add'),                 
 ]

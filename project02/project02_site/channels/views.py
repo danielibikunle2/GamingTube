@@ -1,17 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Channel
 from .forms import ChannelForm
+from django.views.generic import ListView, DetailView
+from .models import Channel
 
+class ChannelListView(ListView):
+    model = Channel
+    template_name = 'channels/channel_list.html'
+    context_object_name = 'channels'
+    ordering = ['name']                
 
-def channel_list(request):
-    channels = Channel.objects.all()
-    context = {'channels': channels}
-    return render(request, 'channels/channel_list.html', context)
-
-def channel_detail(request, pk):
-    channel = get_object_or_404(Channel, pk=pk)
-    context = {'channel': channel}
-    return render(request, 'channels/channel_detail.html', context)
+class ChannelDetailView(DetailView):
+    model = Channel
+    template_name = 'channels/channel_detail.html'
+    context_object_name = 'channel'
+    pk_url_kwarg = 'pk'
 
 def channel_add(request):
     if request.method == 'POST':
@@ -20,7 +23,7 @@ def channel_add(request):
             channel = form.save(commit=False)
             channel.owner = request.user
             channel.save()
-            form.save_m2m()  # needed to save ManyToMany fields
+            form.save_m2m()  
             return redirect('channel_list')
     else:
         form = ChannelForm()
