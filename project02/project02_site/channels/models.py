@@ -7,7 +7,7 @@ class Channel(models.Model):
     description = models.TextField(blank=True)
     subscriber_count = models.IntegerField(default=0)
     banner = models.ImageField(upload_to='banners/', blank=True, default='placeholder.png')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     games = models.ManyToManyField(Game, blank=True)  
     created_at = models.DateTimeField(auto_now_add=True)
 

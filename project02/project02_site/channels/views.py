@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Channel
 from .forms import ChannelForm
-from django.views.generic import ListView, DetailView
-from .models import Channel
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 class ChannelListView(ListView):
     model = Channel
@@ -16,16 +16,8 @@ class ChannelDetailView(DetailView):
     context_object_name = 'channel'
     pk_url_kwarg = 'pk'
 
-def channel_add(request):
-    if request.method == 'POST':
-        form = ChannelForm(request.POST, request.FILES)
-        if form.is_valid():
-            channel = form.save(commit=False)
-            channel.owner = request.user
-            channel.save()
-            form.save_m2m()  
-            return redirect('channel_list')
-    else:
-        form = ChannelForm()
-    context = {'form': form}
-    return render(request, 'channels/channel_add.html', context)
+class ChannelCreateView(CreateView):
+    model = Channel
+    form_class = ChannelForm
+    template_name = 'channels/channel_add.html'
+    success_url = reverse_lazy('channel_list')
