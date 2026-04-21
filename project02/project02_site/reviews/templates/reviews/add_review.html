@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Review | GamingTube{% endblock %}
+
+{% block content %}
+<h1>Review {{ channel.name }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Rating</label>
+        <select name="rating" class="form-control">
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Comment</label>
+        <textarea name="comment" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+    <a href="{% url 'channel_detail' channel.pk %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
