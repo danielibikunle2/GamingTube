@@ -1,24 +1,22 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Video
 from .forms import VideoForm
+from django.views.generic import ListView, DetailView, CreateView
+from .models import Video
+from django.urls import reverse_lazy
+class VideoListView(ListView):
+    model = Video
+    template_name = 'videos/video_list.html'
+    context_object_name = 'videos'
+    ordering = ['-upload_date']          
 
-def video_list(request):
-    videos = Video.objects.all()
-    context = {'videos': videos}
-    return render(request, 'videos/video_list.html', context)
+class VideoDetailView(DetailView):
+    model = Video
+    template_name = 'videos/video_detail.html'
+    context_object_name = 'video'
+    pk_url_kwarg = 'pk'
 
-def video_detail(request, pk):
-    video = get_object_or_404(Video, pk=pk)
-    context = {'video': video}
-    return render(request, 'videos/video_detail.html', context)
-
-def video_add(request):
-    if request.method == 'POST':
-        form = VideoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('video_list')
-    else:
-        form = VideoForm()
-    context = {'form': form}
-    return render(request, 'videos/video_add.html', context)
+class VideoCreateView(CreateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'videos/video_add.html'
+    success_url = reverse_lazy('video_list')

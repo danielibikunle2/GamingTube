@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from .views import VideoListView, VideoDetailView, VideoCreateView
 
 urlpatterns = [
-    path('', views.video_list, name='video_list'),
-    path('<int:pk>/', views.video_detail, name='video_detail'),
-    path('add/', views.video_add, name='video_add'),
+    path('', VideoListView.as_view(), name='video_list'),
+    path('<int:pk>/', VideoDetailView.as_view(), name='video_detail'),
+    path('add/', VideoCreateView.as_view(), name='video_add'),
 ]

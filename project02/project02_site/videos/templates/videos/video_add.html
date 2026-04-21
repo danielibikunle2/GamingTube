@@ -6,43 +6,7 @@
 <h1>Add a Video</h1>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Thumbnail</label>
-        <input type="file" name="thumbnail" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Views</label>
-        <input type="number" name="views" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Upload Date</label>
-        <input type="date" name="upload_date" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Channel</label>
-        <select name="channel" class="form-control">
-            {% for channel in form.channel.field.queryset %}
-            <option value="{{ channel.pk }}">{{ channel.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Game</label>
-        <select name="game" class="form-control">
-            <option value="">---------</option>
-            {% for game in form.game.field.queryset %}
-            <option value="{{ game.pk }}">{{ game.title }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">YouTube URL</label>
-        <input type="url" name="youtube_url" class="form-control">
-    </div>
+    {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Add Video</button>
     <a href="{% url 'video_list' %}" class="btn btn-secondary">Cancel</a>
 </form>
