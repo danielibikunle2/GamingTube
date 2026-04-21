@@ -1,14 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Game, Genre
+from django.views.generic import ListView, DetailView
+from .models import Game
 
-def game_list(request):
-    games = Game.objects.all()
-    genres = Genre.objects.all()
-    context = {'games': games, 'genres': genres}
-    return render(request, 'games/game_list.html', context)
+class GameListView(ListView):
+    model = Game
+    template_name = 'games/game_list.html'
+    context_object_name = 'games'
+    ordering = ['title']
 
-def game_detail(request, pk):
-    game = get_object_or_404(Game, pk=pk)
-    channels = game.channel_set.all()
-    context = {'game': game, 'channels': channels}
-    return render(request, 'games/game_detail.html', context)
+class GameDetailView(DetailView):
+    model = Game
+    template_name = 'games/game_detail.html'
+    context_object_name = 'game'
+    pk_url_kwarg = 'pk'
