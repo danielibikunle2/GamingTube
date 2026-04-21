@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Videos | GamingTube{% endblock %}
+
+{% block content %}
+<h1>Videos</h1>
+<a href="{% url 'video_add' %}" class="btn btn-success mb-4">+ Add Video</a>
+
+<div class="row">
+    {% for video in videos %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if video.thumbnail %}
+            <img src="{{ video.thumbnail.url }}" class="card-img-top" alt="{{ video.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ video.title }}</h5>
+                <p class="text-muted">Channel: {{ video.channel.name }}</p>
+                {% if video.game %}
+                <p class="text-muted">Game: {{ video.game.title }}</p>
+                {% endif %}
+                <p class="text-muted">Views: {{ video.views }}</p>
+                <p class="text-muted">{{ video.upload_date }}</p>
+                <a href="{% url 'video_detail' video.pk %}" class="btn btn-primary">Watch</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No videos yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

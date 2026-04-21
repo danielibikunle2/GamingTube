@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ video.title }} | GamingTube{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        {% if video.youtube_url %}
+        <div class="ratio ratio-16x9 mb-4">
+            <iframe src="{{ video.youtube_url }}" allowfullscreen></iframe>
+        </div>
+        {% elif video.thumbnail %}
+        <img src="{{ video.thumbnail.url }}" class="img-fluid mb-4" alt="{{ video.title }}">
+        {% endif %}
+        <h1>{{ video.title }}</h1>
+        <p class="text-muted">Views: {{ video.views }}</p>
+        <p class="text-muted">Uploaded: {{ video.upload_date }}</p>
+        {% if video.game %}
+        <p><strong>Game:</strong> 
+            <a href="{% url 'game_detail' video.game.pk %}">{{ video.game.title }}</a>
+        </p>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Channel</h5>
+                <p>{{ video.channel.name }}</p>
+                <a href="{% url 'channel_detail' video.channel.pk %}" class="btn btn-primary">View Channel</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
