@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'games.apps.GamesConfig',
     'videos.apps.VideosConfig',
     'reviews.apps.ReviewsConfig',
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
