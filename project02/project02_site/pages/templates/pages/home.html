@@ -5,25 +5,21 @@
 
 {% block content %}
 
-<!-- Hero Section -->
 <div class="bg-dark text-white py-5 mb-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h1 class="display-4 fw-bold">Welcome to GamingTube</h1>
-                <p class="lead mb-4">Your ultimate directory for the best gaming YouTube channels, videos, and games.</p>
+                <p class="lead mb-4">Your directory for the best gaming YouTube channels, videos, and games.</p>
                 <a href="{% url 'channel_list' %}" class="btn btn-primary btn-lg me-3">Browse Channels</a>
                 <a href="{% url 'game_list' %}" class="btn btn-outline-light btn-lg">Explore Games</a>
             </div>
-            <div class="col-lg-4 text-center">
-                <!-- You can add a hero image here later -->
-                <img src="{% static 'images/gaming-hero.png' %}" alt="GamingTube" class="img-fluid rounded" style="max-height: 300px;">
-            </div>
+            
         </div>
     </div>
 </div>
 
-<!-- Featured Channels -->
+
 <div class="container mb-5">
     <h2 class="mb-4">Featured Channels</h2>
     <div class="row">
