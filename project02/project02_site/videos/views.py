@@ -3,6 +3,7 @@ from .forms import VideoForm
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Video
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 class VideoListView(ListView):
     model = Video
     template_name = 'videos/video_list.html'
@@ -16,6 +17,12 @@ class VideoDetailView(DetailView):
     pk_url_kwarg = 'pk'
 
 class VideoCreateView(CreateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'videos/video_add.html'
+    success_url = reverse_lazy('video_list')
+
+class VideoCreateView(LoginRequiredMixin, CreateView):
     model = Video
     form_class = VideoForm
     template_name = 'videos/video_add.html'
