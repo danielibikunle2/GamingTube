@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Channel
 from .forms import ChannelForm
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -37,6 +37,15 @@ class ChannelCreateView(LoginRequiredMixin, CreateView):
 class ChannelDeleteView(LoginRequiredMixin, DeleteView):
     model = Channel
     template_name = 'channels/channel_confirm_delete.html'
+    success_url = reverse_lazy('channel_list')
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+    
+class ChannelUpdateView(LoginRequiredMixin, UpdateView):
+    model = Channel
+    form_class = ChannelForm
+    template_name = 'channels/channel_edit.html'
     success_url = reverse_lazy('channel_list')
 
     def get_queryset(self):

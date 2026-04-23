@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{ object.name }} | GamingTube{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Channel: {{ object.name }}</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'channel_detail' object.pk %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
